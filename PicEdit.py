@@ -10,33 +10,33 @@ from tkinter import filedialog
 
 def open_image():
     """
-    Ouvre une boîte de dialogue pour choisir un fichier image. Récupère le nom du fichier sélectionné
-    et l'affiche dans un champ de texte spécifique de l'interface utilisateur.
+    Opens a dialog box to choose an image file. Retrieves the selected file name
+    and displays it in a specific text field of the user interface.
 
-    Entrées :
-    - Aucune
+    Inputs:
+    - None
 
-    Sorties :
-    - Aucune (mais modifie l'état de l'interface utilisateur)
+    Outputs:
+    - None (but modifies the state of the user interface)
 
-    1. Ouvre une boîte de dialogue de sélection de fichier pour les types de fichiers image (*.png, *.jpg, *.jpeg) 
-       en utilisant filedialog.askopenfilename.
-    2. Récupère le nom du fichier sélectionné sans le chemin complet en utilisant os.path.basename.
-    3. Active la modification du champ de texte label_read, insère le nom du fichier, puis désactive à nouveau 
-       la modification du champ.
+    1. Opens a file selection dialog for image file types (*.png, *.jpg, *.jpeg) 
+       using filedialog.askopenfilename.
+    2. Retrieves the selected file name without the full path using os.path.basename.
+    3. Allows modification of the label_read text field, inserts the file name, then disables 
+       modification of the field again.
 
-    - Les modules os, tkinter (ou une autre interface graphique), et filedialog doivent être importés.
-    - Un champ de texte label_read doit être défini dans l'interface utilisateur.
+    - The os, tkinter (or any other GUI), and filedialog modules must be imported.
+    - A text field label_read must be defined in the user interface.
 
-    - Le champ de texte label_read contiendra le nom du fichier sélectionné et sera en état de lecture seule.
+    - The label_read text field will contain the selected file name and will be in read-only state.
     """
-    # Ouvre une boîte de dialogue pour choisir un fichier image
-    charger = filedialog.askopenfilename(filetypes=[("Image files", "*.png;*.jpg;*.jpeg")])
+    # Opens a dialog box to choose an image file
+    load = filedialog.askopenfilename(filetypes=[("Image files", "*.png;*.jpg;*.jpeg")])
     
-    # Récupère le nom du fichier sélectionné
-    filename = os.path.basename(charger)
+    # Retrieves the selected file name
+    filename = os.path.basename(load)
     
-    # Autorise la modification du champ de texte et insère le nom du fichier
+    # Allows modification of the text field and inserts the file name
     label_read.config(state="normal")
     label_read.delete(0, tk.END)
     label_read.insert(0, filename)
@@ -45,33 +45,33 @@ def open_image():
 
 def open_image2():
     """
-    Ouvre une boîte de dialogue pour choisir un deuxième fichier image. Récupère le nom du fichier sélectionné
-    et l'affiche dans un champ de texte spécifique de l'interface utilisateur.
+    Opens a dialog box to choose a second image file. Retrieves the selected file name
+    and displays it in a specific text field of the user interface.
 
-    Entrées :
-    - Aucune
+    Inputs:
+    - None
 
-    Sorties :
-    - Aucune (mais modifie l'état de l'interface utilisateur)
+    Outputs:
+    - None (but modifies the state of the user interface)
 
-    1. Ouvre une boîte de dialogue de sélection de fichier pour les types de fichiers image (*.png, *.jpg, *.jpeg) 
-       en utilisant filedialog.askopenfilename.
-    2. Récupère le nom du fichier sélectionné sans le chemin complet en utilisant os.path.basename.
-    3. Active la modification du champ de texte label_read2, insère le nom du fichier, puis désactive à nouveau 
-       la modification du champ.
+    1. Opens a file selection dialog for image file types (*.png, *.jpg, *.jpeg) 
+       using filedialog.askopenfilename.
+    2. Retrieves the selected file name without the full path using os.path.basename.
+    3. Allows modification of the label_read2 text field, inserts the file name, then disables 
+       modification of the field again.
 
-    - Les modules os, tkinter (ou une autre interface graphique), et filedialog doivent être importés.
-    - Un champ de texte label_read2 doit être défini dans l'interface utilisateur.
+    - The os, tkinter (or any other GUI), and filedialog modules must be imported.
+    - A text field label_read2 must be defined in the user interface.
 
-    - Le champ de texte label_read2 contiendra le nom du fichier sélectionné et sera en état de lecture seule.
+    - The label_read2 text field will contain the selected file name and will be in read-only state.
     """
-    # Ouvre une boîte de dialogue pour choisir un deuxième fichier image
-    charger = filedialog.askopenfilename(filetypes=[("Image files", "*.png;*.jpg;*.jpeg")])
+    # Opens a dialog box to choose a second image file
+    load = filedialog.askopenfilename(filetypes=[("Image files", "*.png;*.jpg;*.jpeg")])
     
-    # Récupère le nom du fichier sélectionné
-    filename = os.path.basename(charger)
+    # Retrieves the selected file name
+    filename = os.path.basename(load)
     
-    # Autorise la modification du champ de texte et insère le nom du fichier
+    # Allows modification of the text field and inserts the file name
     label_read2.config(state="normal")
     label_read2.delete(0, tk.END)
     label_read2.insert(0, filename)
@@ -80,23 +80,23 @@ def open_image2():
 
 def crop(x):
     """
-    Extrait la partie du nom d'un fichier avant le premier point ('.') dans une chaîne de caractères donnée.
+    Extracts the part of a file name before the first period ('.') in a given string.
 
-    Entrées :
-    - x (str) : une chaîne de caractères représentant le nom d'un fichier
+    Inputs:
+    - x (str): a string representing a file name
 
-    Sorties :
-    - nom3 (str) : la partie de la chaîne x avant le premier point ('.')
+    Outputs:
+    - nom3 (str): the part of string x before the first period ('.')
 
-    1. Initialise une chaîne vide nom3.
-    2. Parcourt chaque caractère de la chaîne x jusqu'à rencontrer un point ('.').
-    3. Si le caractère actuel n'est pas un point, il est ajouté à nom3.
-    4. Si un point est rencontré, la fonction retourne immédiatement nom3.
-    5. Si aucun point n'est rencontré, la fonction retourne nom3 à la fin de la boucle.
+    1. Initialize an empty string nom3.
+    2. Iterates through each character of string x until encountering a period ('.').
+    3. If the current character is not a period, it is appended to nom3.
+    4. If a period is encountered, the function immediately returns nom3.
+    5. If no period is encountered, the function returns nom3 at the end of the loop.
 
-    - x doit être une chaîne de caractères
+    - x must be a string.
 
-    - Retourne la partie de x avant le premier point, ou toute la chaîne si aucun point n'est présent.
+    - Returns the part of x before the first period, or the whole string if no period is present.
     """
     nom3 = ""
     for i in x:
@@ -107,173 +107,175 @@ def crop(x):
     return nom3
 
 
+
 def init():
     """
-    Récupère le nom du fichier image à partir du champ de texte, ouvre l'image, redimensionne pour l'affichage
-    et crée une nouvelle image vide de même taille que l'image originale. Efface également l'affichage de l'image B.
+    Retrieves the image file name from the text field, opens the image, resizes it for display,
+    and creates a new empty image of the same size as the original image. Also clears the display of image B.
 
-    Entrées :
-    - Aucune
+    Inputs:
+    - None
 
-    Sorties :
-    - nom (str) : le nom du fichier image
-    - img (PIL.Image) : l'objet image PIL ouvert
-    - image_tk (ImageTk.PhotoImage) : l'objet image redimensionné pour l'affichage
-    - l (int) : la largeur de l'image originale
-    - h (int) : la hauteur de l'image originale
-    - img2 (PIL.Image) : une nouvelle image vide de même taille que l'image originale
+    Outputs:
+    - nom (str): the file name of the image
+    - img (PIL.Image): the opened PIL image object
+    - image_tk (ImageTk.PhotoImage): the resized image object for display
+    - l (int): the width of the original image
+    - h (int): the height of the original image
+    - img2 (PIL.Image): a new empty image of the same size as the original image
 
-    1. Récupère le nom du fichier image à partir du champ de texte label_read.
-    2. Ouvre l'image en utilisant PIL.Image.open et récupère ses dimensions (largeur et hauteur).
-    3. Redimensionne l'image pour l'affichage dans l'interface graphique.
-    4. Affiche l'image redimensionnée dans le label_image.
-    5. Crée une nouvelle image vide de même taille que l'image originale.
-    6. Efface l'affichage de l'image B et replace le label.
+    1. Retrieves the image file name from the label_read text field.
+    2. Opens the image using PIL.Image.open and retrieves its dimensions (width and height).
+    3. Resizes the image for display in the graphical interface.
+    4. Displays the resized image in label_image.
+    5. Creates a new empty image of the same size as the original image.
+    6. Clears the display of image B and resets the label.
 
-    - Les modules os, tkinter, filedialog et PIL doivent être importés.
-    - Les champs de texte et labels label_read, label_image, et label_imageB doivent être définis dans l'interface utilisateur.
+    - The os, tkinter, filedialog, and PIL modules must be imported.
+    - The text fields and labels label_read, label_image, and label_imageB must be defined in the user interface.
 
-    - Le champ de texte label_read contient le nom du fichier image.
-    - Le label_image affiche l'image redimensionnée.
-    - Le label_imageB est réinitialisé.
+    - The label_read text field contains the file name of the image.
+    - The label_image displays the resized image.
+    - The label_imageB is reset.
     """
-    # Récupère le nom du fichier image à partir du champ de texte
+    # Retrieves the image file name from the text field
     nom = label_read.get()
     
-    # Ouvre l'image et récupère ses dimensions
+    # Opens the image and retrieves its dimensions
     img = Image.open(nom)
     l, h = img.size
     
-    # Redimensionne l'image pour l'affichage dans l'interface graphique
+    # Resizes the image for display in the graphical interface
     img_resized = img.resize((int(l * 250 / l), int(h / (l / (l * 250 / l)))))
     image_tk = ImageTk.PhotoImage(img_resized)
     label_image.config(image=image_tk)
     label_image.image = image_tk
     
-    # Crée une nouvelle image vide de même taille que l'image originale
+    # Creates a new empty image of the same size as the original image
     img2 = Image.new("RGB",(l,h))
     
-    # Efface l'affichage de l'image B et replace le label
+    # Clears the display of image B and resets the label
     label_imageB.config(image="")
     label_imageB.place(x=0, y=0)
     
     return nom, img, image_tk, l, h, img2
 
 
-def copier():
+def copy():
     """
-    Copie chaque pixel de l'image originale dans une nouvelle image et affiche cette dernière.
-    Crée également un bouton pour sauvegarder l'image copiée.
+    Copies each pixel from the original image to a new image and displays the latter.
+    Also creates a button to save the copied image.
 
-    Entrées :
-    - Aucune
+    Inputs:
+    - None
 
-    Sorties :
-    - Aucune (mais modifie l'état de l'interface utilisateur)
+    Outputs:
+    - None (but modifies the state of the user interface)
 
-    1. Initialise les variables et récupère l'image en appelant la fonction init().
-    2. Parcourt chaque pixel de l'image originale et les copie dans une nouvelle image.
-    3. Redimensionne l'image copiée pour l'affichage dans l'interface graphique.
-    4. Affiche l'image copiée redimensionnée dans le label_image2.
-    5. Crée un bouton "Sauvegarder" pour sauvegarder l'image copiée avec un nouveau nom.
+    1. Initializes variables and retrieves the image by calling the init() function.
+    2. Iterates through each pixel of the original image and copies them to a new image.
+    3. Resizes the copied image for display in the graphical interface.
+    4. Displays the resized copied image in label_image2.
+    5. Creates a "Save" button to save the copied image with a new name.
 
-    - Les modules os, tkinter, filedialog et PIL doivent être importés.
-    - Les champs de texte et labels label_read, label_image, label_imageB, et label_image2 doivent être définis dans l'interface utilisateur.
+    - The os, tkinter, filedialog, and PIL modules must be imported.
+    - The text fields and labels label_read, label_image, label_imageB, and label_image2 must be defined in the user interface.
 
-    - Le label_image2 affiche l'image copiée redimensionnée.
-    - Un bouton "Sauvegarder" permet de sauvegarder l'image copiée.
+    - The label_image2 displays the resized copied image.
+    - A "Save" button allows saving the copied image.
     """
-    # Initialise les variables et récupère l'image
+    # Initializes variables and retrieves the image
     nom, img, image_tk, l, h, img2 = init()
     
-    # Parcourt chaque pixel de l'image et les copie dans une nouvelle image
+    # Iterates through each pixel of the image and copies them to a new image
     for x in range(0, l):
         for y in range(0, h):
             r, g, b = img.getpixel((x, y))
             img2.putpixel((x, y), (r, g, b))
     
-    # Redimensionne l'image pour l'affichage
+    # Resizes the image for display
     img2_resized = img2.resize((int(l * 250 / l), int(h / (l / (l * 250 / l)))))
     image_tk = ImageTk.PhotoImage(img2_resized)
     label_image2.config(image=image_tk)
     label_image2.image = image_tk
     
-    # Crée le bouton "Sauvegarder" pour sauvegarder l'image
-    button_save = tk.Button(fenetre, text="Sauvegarder", command=lambda: img2.save("copie de " + nom), bg="#0093FF", fg="white", font=("Helvetica", 12))
+    # Creates the "Save" button to save the image
+    button_save = tk.Button(window, text="Save", command=lambda: img2.save("copy of " + nom), bg="#0093FF", fg="white", font=("Helvetica", 12))
     button_save.place(x=50, y=0)
 
 
-def gris():
+
+def grayscale():
     """
-    Convertit chaque pixel de l'image originale en niveaux de gris et affiche l'image résultante.
-    Crée également un bouton pour sauvegarder l'image en niveaux de gris.
+    Converts each pixel of the original image to grayscale levels and displays the resulting image.
+    Also creates a button to save the grayscale image.
 
-    Entrées :
-    - Aucune
+    Inputs:
+    - None
 
-    Sorties :
-    - Aucune (mais modifie l'état de l'interface utilisateur)
+    Outputs:
+    - None (but modifies the state of the user interface)
 
-    1. Initialise les variables et récupère l'image en appelant la fonction init().
-    2. Parcourt chaque pixel de l'image originale et convertit les couleurs en niveaux de gris.
-    3. Redimensionne l'image en niveaux de gris pour l'affichage dans l'interface graphique.
-    4. Affiche l'image en niveaux de gris redimensionnée dans le label_image2.
-    5. Crée un bouton "Sauvegarder" pour sauvegarder l'image en niveaux de gris avec un nouveau nom.
+    1. Initializes variables and retrieves the image by calling the init() function.
+    2. Iterates through each pixel of the original image and converts the colors to grayscale.
+    3. Resizes the grayscale image for display in the graphical interface.
+    4. Displays the resized grayscale image in label_image2.
+    5. Creates a "Save" button to save the grayscale image with a new name.
 
-    - Les modules os, tkinter, filedialog et PIL doivent être importés.
-    - Les champs de texte et labels label_read, label_image, label_imageB, et label_image2 doivent être définis dans l'interface utilisateur.
+    - The os, tkinter, filedialog, and PIL modules must be imported.
+    - The text fields and labels label_read, label_image, label_imageB, and label_image2 must be defined in the user interface.
 
-    - Le label_image2 affiche l'image en niveaux de gris redimensionnée.
-    - Un bouton "Sauvegarder" permet de sauvegarder l'image en niveaux de gris.
+    - The label_image2 displays the resized grayscale image.
+    - A "Save" button allows saving the grayscale image.
     """
-    # Initialise les variables et récupère l'image
+    # Initializes variables and retrieves the image
     nom, img, image_tk, l, h, img2 = init()
     
-    # Parcourt chaque pixel de l'image et convertit en niveaux de gris
+    # Iterates through each pixel of the image and converts to grayscale
     for x in range(0, l):
         for y in range(0, h):
             r, g, b = img.getpixel((x, y))
             c = int((r + g + b) / 3)
             img2.putpixel((x, y), (c, c, c))
     
-    # Redimensionne l'image pour l'affichage
+    # Resizes the image for display
     img2_resized = img2.resize((int(l * 250 / l), int(h / (l / (l * 250 / l)))))
     image_tk = ImageTk.PhotoImage(img2_resized)
     label_image2.config(image=image_tk)
     label_image2.image = image_tk
     
-    # Crée le bouton "Sauvegarder" pour sauvegarder l'image
-    button_save = tk.Button(fenetre, text="Sauvegarder", command=lambda: img2.save("noir et blanc de " + nom), bg="#0093FF", fg="white", font=("Helvetica", 12))
+    # Creates the "Save" button to save the image
+    button_save = tk.Button(window, text="Save", command=lambda: img2.save("grayscale of " + nom), bg="#0093FF", fg="white", font=("Helvetica", 12))
     button_save.place(x=50, y=0)
 
 
-def inverser():
+def invert_colors():
     """
-    Inverse les couleurs de chaque pixel de l'image originale et affiche l'image résultante.
-    Crée également un bouton pour sauvegarder l'image avec les couleurs inversées.
+    Inverts the colors of each pixel of the original image and displays the resulting image.
+    Also creates a button to save the image with inverted colors.
 
-    Entrées :
-    - Aucune
+    Inputs:
+    - None
 
-    Sorties :
-    - Aucune (mais modifie l'état de l'interface utilisateur)
+    Outputs:
+    - None (but modifies the state of the user interface)
 
-    1. Initialise les variables et récupère l'image en appelant la fonction init().
-    2. Parcourt chaque pixel de l'image originale et inverse les couleurs (255 - valeur de chaque composante RGB).
-    3. Redimensionne l'image inversée pour l'affichage dans l'interface graphique.
-    4. Affiche l'image inversée redimensionnée dans le label_image2.
-    5. Crée un bouton "Sauvegarder" pour sauvegarder l'image inversée avec un nouveau nom.
+    1. Initializes variables and retrieves the image by calling the init() function.
+    2. Iterates through each pixel of the original image and inverts the colors (255 - value of each RGB component).
+    3. Resizes the inverted image for display in the graphical interface.
+    4. Displays the resized inverted image in label_image2.
+    5. Creates a "Save" button to save the inverted image with a new name.
 
-    - Les modules os, tkinter, filedialog et PIL doivent être importés.
-    - Les champs de texte et labels label_read, label_image, label_imageB, et label_image2 doivent être définis dans l'interface utilisateur.
+    - The os, tkinter, filedialog, and PIL modules must be imported.
+    - The text fields and labels label_read, label_image, label_imageB, and label_image2 must be defined in the user interface.
 
-    - Le label_image2 affiche l'image inversée redimensionnée.
-    - Un bouton "Sauvegarder" permet de sauvegarder l'image inversée.
+    - The label_image2 displays the resized inverted image.
+    - A "Save" button allows saving the inverted image.
     """
-    # Initialise les variables et récupère l'image
+    # Initializes variables and retrieves the image
     nom, img, image_tk, l, h, img2 = init()
     
-    # Parcourt chaque pixel de l'image et inverse les couleurs
+    # Iterates through each pixel of the image and inverts the colors
     for x in range(0, l):
         for y in range(0, h):
             r, g, b = img.getpixel((x, y))
@@ -282,537 +284,518 @@ def inverser():
             b2 = 255 - b
             img2.putpixel((x, y), (r2, g2, b2))
     
-    # Redimensionne l'image pour l'affichage
+    # Resizes the image for display
     img2_resized = img2.resize((int(l * 250 / l), int(h / (l / (l * 250 / l)))))
     image_tk = ImageTk.PhotoImage(img2_resized)
     label_image2.config(image=image_tk)
     label_image2.image = image_tk
     
-    # Crée le bouton "Sauvegarder" pour sauvegarder l'image
-    button_save = tk.Button(fenetre, text="Sauvegarder", command=lambda: img2.save("couleurs inversées de " + nom), bg="#0093FF", fg="white", font=("Helvetica", 12))
+    # Creates the "Save" button to save the image
+    button_save = tk.Button(window, text="Save", command=lambda: img2.save("inverted colors of " + nom), bg="#0093FF", fg="white", font=("Helvetica", 12))
     button_save.place(x=50, y=0)
 
 
-def haut_bas():
+def flip_vertical():
     """
-    Inverse l'image verticalement et affiche l'image résultante.
-    Crée également un bouton pour sauvegarder l'image inversée verticalement.
+    Flips the image vertically and displays the resulting image.
+    Also creates a button to save the vertically flipped image.
 
-    Entrées :
-    - Aucune
+    Inputs:
+    - None
 
-    Sorties :
-    - Aucune (mais modifie l'état de l'interface utilisateur)
+    Outputs:
+    - None (but modifies the state of the user interface)
 
-    1. Initialise les variables et récupère l'image en appelant la fonction init().
-    2. Parcourt chaque pixel de l'image originale et inverse les positions verticales.
-    3. Redimensionne l'image inversée verticalement pour l'affichage dans l'interface graphique.
-    4. Affiche l'image inversée verticalement redimensionnée dans le label_image2.
-    5. Crée un bouton "Sauvegarder" pour sauvegarder l'image inversée verticalement avec un nouveau nom.
+    1. Initializes variables and retrieves the image by calling the init() function.
+    2. Iterates through each pixel of the original image and flips the vertical positions.
+    3. Resizes the vertically flipped image for display in the graphical interface.
+    4. Displays the resized vertically flipped image in label_image2.
+    5. Creates a "Save" button to save the vertically flipped image with a new name.
 
-    - Les modules os, tkinter, filedialog et PIL doivent être importés.
-    - Les champs de texte et labels label_read, label_image, label_imageB, et label_image2 doivent être définis dans l'interface utilisateur.
+    - The os, tkinter, filedialog, and PIL modules must be imported.
+    - The text fields and labels label_read, label_image, label_imageB, and label_image2 must be defined in the user interface.
 
-    - Le label_image2 affiche l'image inversée verticalement redimensionnée.
-    - Un bouton "Sauvegarder" permet de sauvegarder l'image inversée verticalement.
+    - The label_image2 displays the resized vertically flipped image.
+    - A "Save" button allows saving the vertically flipped image.
     """
-    # Initialise les variables et récupère l'image
+    # Initializes variables and retrieves the image
     nom, img, image_tk, l, h, img2 = init()
     
-    # Parcourt chaque pixel de l'image
+    # Iterates through each pixel of the image
     for x in range(0, l):
         for y in range(0, h):
             r, g, b = img.getpixel((x, y))
             
-            # Place le pixel à la position correspondante, mais inversée verticalement
+            # Places the pixel at the corresponding position, but vertically flipped
             img2.putpixel((x, h - y - 1), (r, g, b))
     
-    # Redimensionne l'image pour l'affichage
+    # Resizes the image for display
     img2_resized = img2.resize((int(l * 250 / l), int(h / (l / (l * 250 / l)))))
     image_tk = ImageTk.PhotoImage(img2_resized)
     label_image2.config(image=image_tk)
     label_image2.image = image_tk
     
-    # Crée le bouton "Sauvegarder" pour sauvegarder l'image
-    button_save = tk.Button(fenetre, text="Sauvegarder", command=lambda: img2.save("image retournée (haut-bas) de " + nom), bg="#0093FF", fg="white", font=("Helvetica", 12))
+    # Creates the "Save" button to save the image
+    button_save = tk.Button(window, text="Save", command=lambda: img2.save("flipped image (top-bottom) of " + nom), bg="#0093FF", fg="white", font=("Helvetica", 12))
     button_save.place(x=50, y=0)
 
 
-def gauche_droite():
+
+def flip_horizontal():
     """
-    Inverse l'image horizontalement et affiche l'image résultante.
-    Crée également un bouton pour sauvegarder l'image inversée horizontalement.
+    Flips the image horizontally and displays the resulting image.
+    Also creates a button to save the horizontally flipped image.
 
-    Entrées :
-    - Aucune
+    Inputs:
+    - None
 
-    Sorties :
-    - Aucune (mais modifie l'état de l'interface utilisateur)
+    Outputs:
+    - None (but modifies the state of the user interface)
 
-    1. Initialise les variables et récupère l'image en appelant la fonction init().
-    2. Parcourt chaque pixel de l'image originale et inverse les positions horizontales.
-    3. Redimensionne l'image inversée horizontalement pour l'affichage dans l'interface graphique.
-    4. Affiche l'image inversée horizontalement redimensionnée dans le label_image2.
-    5. Crée un bouton "Sauvegarder" pour sauvegarder l'image inversée horizontalement avec un nouveau nom.
+    1. Initializes variables and retrieves the image by calling the init() function.
+    2. Iterates through each pixel of the original image and flips the horizontal positions.
+    3. Resizes the horizontally flipped image for display in the graphical interface.
+    4. Displays the resized horizontally flipped image in label_image2.
+    5. Creates a "Save" button to save the horizontally flipped image with a new name.
 
-    - Les modules os, tkinter, filedialog et PIL doivent être importés.
-    - Les champs de texte et labels label_read, label_image, label_imageB, et label_image2 doivent être définis dans l'interface utilisateur.
+    - The os, tkinter, filedialog, and PIL modules must be imported.
+    - The text fields and labels label_read, label_image, label_imageB, and label_image2 must be defined in the user interface.
 
-    - Le label_image2 affiche l'image inversée horizontalement redimensionnée.
-    - Un bouton "Sauvegarder" permet de sauvegarder l'image inversée horizontalement.
+    - The label_image2 displays the resized horizontally flipped image.
+    - A "Save" button allows saving the horizontally flipped image.
     """
-    # Initialise les variables et récupère l'image
+    # Initializes variables and retrieves the image
     nom, img, image_tk, l, h, img2 = init()
     
-    # Parcourt chaque pixel de l'image
+    # Iterates through each pixel of the image
     for x in range(0, l):
         for y in range(0, h):
             r, g, b = img.getpixel((x, y))
             
-            # Place le pixel à la position correspondante, mais inversée horizontalement
+            # Places the pixel at the corresponding position, but horizontally flipped
             img2.putpixel((l - x - 1, y), (r, g, b))
     
-    # Redimensionne l'image pour l'affichage
+    # Resizes the image for display
     img2_resized = img2.resize((int(l * 250 / l), int(h / (l / (l * 250 / l)))))
     image_tk = ImageTk.PhotoImage(img2_resized)
     label_image2.config(image=image_tk)
     label_image2.image = image_tk
     
-    # Crée le bouton "Sauvegarder" pour sauvegarder l'image
-    button_save = tk.Button(fenetre, text="Sauvegarder", command=lambda: img2.save("image retournée (gauche-droite) de " + nom), bg="#0093FF", fg="white", font=("Helvetica", 12))
+    # Creates the "Save" button to save the image
+    button_save = tk.Button(window, text="Save", command=lambda: img2.save("flipped image (left-right) of " + nom), bg="#0093FF", fg="white", font=("Helvetica", 12))
     button_save.place(x=50, y=0)
 
 
-def rouge():
+def red():
     """
-    Conserve les pixels rouges de l'image originale et convertit les autres pixels en niveaux de gris.
-    Affiche l'image résultante. Crée également un bouton pour sauvegarder l'image modifiée.
+    Preserves the red pixels of the original image and converts other pixels to grayscale.
+    Displays the resulting image. Also creates a button to save the modified image.
 
-    Entrées :
-    - Aucune
+    Inputs:
+    - None
 
-    Sorties :
-    - Aucune (mais modifie l'état de l'interface utilisateur)
+    Outputs:
+    - None (but modifies the state of the user interface)
 
-    1. Initialise les variables et récupère l'image en appelant la fonction init().
-    2. Parcourt chaque pixel de l'image originale.
-    3. Si la composante rouge est dominante, conserve les couleurs originales, sinon convertit en niveaux de gris.
-    4. Redimensionne l'image modifiée pour l'affichage dans l'interface graphique.
-    5. Affiche l'image modifiée redimensionnée dans le label_image2.
-    6. Crée un bouton "Sauvegarder" pour sauvegarder l'image modifiée avec un nouveau nom.
+    1. Initializes variables and retrieves the image by calling the init() function.
+    2. Iterates through each pixel of the original image.
+    3. If red is the dominant component, preserves the original colors; otherwise, converts to grayscale.
+    4. Resizes the modified image for display in the graphical interface.
+    5. Displays the resized modified image in label_image2.
+    6. Creates a "Save" button to save the modified image with a new name.
 
-    - Les modules os, tkinter, filedialog et PIL doivent être importés.
-    - Les champs de texte et labels label_read, label_image, label_imageB, et label_image2 doivent être définis dans l'interface utilisateur.
+    - The os, tkinter, filedialog, and PIL modules must be imported.
+    - The text fields and labels label_read, label_image, label_imageB, and label_image2 must be defined in the user interface.
 
-    - Le label_image2 affiche l'image modifiée redimensionnée.
-    - Un bouton "Sauvegarder" permet de sauvegarder l'image modifiée.
+    - The label_image2 displays the resized modified image.
+    - A "Save" button allows saving the modified image.
     """
-    # Initialise les variables et récupère l'image
+    # Initializes variables and retrieves the image
     nom, img, image_tk, l, h, img2 = init()
     
-    # Parcourt chaque pixel de l'image
+    # Iterates through each pixel of the image
     for x in range(0, l):
         for y in range(0, h):
             r, g, b = img.getpixel((x, y))
             
-            # Si le rouge est la composante dominante, conserve la couleur rouge, sinon la convertit en niveau de gris
+            # If red is the dominant component, preserves the red color; otherwise, converts to grayscale
             if r > g and r > b:
                 img2.putpixel((x, y), (r, g, b))
             else:
                 c = int((r + g + b) / 3)
                 img2.putpixel((x, y), (c, c, c))
     
-    # Redimensionne l'image pour l'affichage
+    # Resizes the image for display
     img2_resized = img2.resize((int(l * 250 / l), int(h / (l / (l * 250 / l)))))
     image_tk = ImageTk.PhotoImage(img2_resized)
     label_image2.config(image=image_tk)
     label_image2.image = image_tk
     
-    # Crée le bouton "Sauvegarder" pour sauvegarder l'image
-    button_save = tk.Button(fenetre, text="Sauvegarder", command=lambda: img2.save("le rouge a été gardée dans " + nom), bg="#0093FF", fg="white", font=("Helvetica", 12))
+    # Creates the "Save" button to save the image
+    button_save = tk.Button(window, text="Save", command=lambda: img2.save("red preserved in " + nom), bg="#0093FF", fg="white", font=("Helvetica", 12))
     button_save.place(x=50, y=0)
 
 
-def vert():
+
+def green():
     """
-    Conserve les pixels verts de l'image originale et convertit les autres pixels en niveaux de gris.
-    Affiche l'image résultante. Crée également un bouton pour sauvegarder l'image modifiée.
+    Preserves the green pixels of the original image and converts other pixels to grayscale.
+    Displays the resulting image. Also creates a button to save the modified image.
 
-    Entrées :
-    - Aucune
+    Inputs:
+    - None
 
-    Sorties :
-    - Aucune (mais modifie l'état de l'interface utilisateur)
+    Outputs:
+    - None (but modifies the state of the user interface)
 
-    1. Initialise les variables et récupère l'image en appelant la fonction init().
-    2. Parcourt chaque pixel de l'image originale.
-    3. Si la composante verte est dominante, conserve les couleurs originales, sinon convertit en niveaux de gris.
-    4. Redimensionne l'image modifiée pour l'affichage dans l'interface graphique.
-    5. Affiche l'image modifiée redimensionnée dans le label_image2.
-    6. Crée un bouton "Sauvegarder" pour sauvegarder l'image modifiée avec un nouveau nom.
+    1. Initializes variables and retrieves the image by calling the init() function.
+    2. Iterates through each pixel of the original image.
+    3. If green is the dominant component, preserves the original colors; otherwise, converts to grayscale.
+    4. Resizes the modified image for display in the graphical interface.
+    5. Displays the resized modified image in label_image2.
+    6. Creates a "Save" button to save the modified image with a new name.
 
-    - Les modules os, tkinter, filedialog et PIL doivent être importés.
-    - Les champs de texte et labels label_read, label_image, label_imageB, et label_image2 doivent être définis dans l'interface utilisateur.
+    - The os, tkinter, filedialog, and PIL modules must be imported.
+    - The text fields and labels label_read, label_image, label_imageB, and label_image2 must be defined in the user interface.
 
-    - Le label_image2 affiche l'image modifiée redimensionnée.
-    - Un bouton "Sauvegarder" permet de sauvegarder l'image modifiée.
+    - The label_image2 displays the resized modified image.
+    - A "Save" button allows saving the modified image.
     """
-    # Initialise les variables et récupère l'image
+    # Initializes variables and retrieves the image
     nom, img, image_tk, l, h, img2 = init()
     
-    # Parcourt chaque pixel de l'image
+    # Iterates through each pixel of the image
     for x in range(0, l):
         for y in range(0, h):
             r, g, b = img.getpixel((x, y))
             
-            # Si le vert est la composante dominante, conserve la couleur verte, sinon la convertit en niveau de gris
+            # If green is the dominant component, preserves the green color; otherwise, converts to grayscale
             if g > r and g > b:
                 img2.putpixel((x, y), (r, g, b))
             else:
                 c = int((r + g + b) / 3)
                 img2.putpixel((x, y), (c, c, c))
     
-    # Redimensionne l'image pour l'affichage
+    # Resizes the image for display
     img2_resized = img2.resize((int(l * 250 / l), int(h / (l / (l * 250 / l)))))
     image_tk = ImageTk.PhotoImage(img2_resized)
     label_image2.config(image=image_tk)
     label_image2.image = image_tk
     
-    # Crée le bouton "Sauvegarder" pour sauvegarder l'image
-    button_save = tk.Button(fenetre, text="Sauvegarder", command=lambda: img2.save("le vert a été gardée dans " + nom), bg="#0093FF", fg="white", font=("Helvetica", 12))
+    # Creates the "Save" button to save the image
+    button_save = tk.Button(fenetre, text="Save", command=lambda: img2.save("green preserved in " + nom), bg="#0093FF", fg="white", font=("Helvetica", 12))
     button_save.place(x=50, y=0)
 
 
-def bleu():
+def blue():
     """
-    Conserve les pixels bleus de l'image originale et convertit les autres pixels en niveaux de gris.
-    Affiche l'image résultante. Crée également un bouton pour sauvegarder l'image modifiée.
+    Preserves the blue pixels of the original image and converts other pixels to grayscale.
+    Displays the resulting image. Also creates a button to save the modified image.
 
-    Entrées :
-    - Aucune
+    Inputs:
+    - None
 
-    Sorties :
-    - Aucune (mais modifie l'état de l'interface utilisateur)
+    Outputs:
+    - None (but modifies the state of the user interface)
 
-    1. Initialise les variables et récupère l'image en appelant la fonction init().
-    2. Parcourt chaque pixel de l'image originale.
-    3. Si la composante bleue est dominante, conserve les couleurs originales, sinon convertit en niveaux de gris.
-    4. Redimensionne l'image modifiée pour l'affichage dans l'interface graphique.
-    5. Affiche l'image modifiée redimensionnée dans le label_image2.
-    6. Crée un bouton "Sauvegarder" pour sauvegarder l'image modifiée avec un nouveau nom.
+    1. Initializes variables and retrieves the image by calling the init() function.
+    2. Iterates through each pixel of the original image.
+    3. If blue is the dominant component, preserves the original colors; otherwise, converts to grayscale.
+    4. Resizes the modified image for display in the graphical interface.
+    5. Displays the resized modified image in label_image2.
+    6. Creates a "Save" button to save the modified image with a new name.
 
-    - Les modules os, tkinter, filedialog et PIL doivent être importés.
-    - Les champs de texte et labels label_read, label_image, label_imageB, et label_image2 doivent être définis dans l'interface utilisateur.
+    - The os, tkinter, filedialog, and PIL modules must be imported.
+    - The text fields and labels label_read, label_image, label_imageB, and label_image2 must be defined in the user interface.
 
-    - Le label_image2 affiche l'image modifiée redimensionnée.
-    - Un bouton "Sauvegarder" permet de sauvegarder l'image modifiée.
+    - The label_image2 displays the resized modified image.
+    - A "Save" button allows saving the modified image.
     """
-    # Initialise les variables et récupère l'image
+    # Initializes variables and retrieves the image
     nom, img, image_tk, l, h, img2 = init()
     
-    # Parcourt chaque pixel de l'image
+    # Iterates through each pixel of the image
     for x in range(0, l):
         for y in range(0, h):
             r, g, b = img.getpixel((x, y))
             
-            # Si le bleu est la composante dominante, conserve la couleur bleue, sinon la convertit en niveau de gris
+            # If blue is the dominant component, preserves the blue color; otherwise, converts to grayscale
             if b > r and b > g:
                 img2.putpixel((x, y), (r, g, b))
             else:
                 c = int((r + g + b) / 3)
                 img2.putpixel((x, y), (c, c, c))
     
-    # Redimensionne l'image pour l'affichage
+    # Resizes the image for display
     img2_resized = img2.resize((int(l * 250 / l), int(h / (l / (l * 250 / l)))))
     image_tk = ImageTk.PhotoImage(img2_resized)
     label_image2.config(image=image_tk)
     label_image2.image = image_tk
     
-    # Crée le bouton "Sauvegarder" pour sauvegarder l'image
-    button_save = tk.Button(fenetre, text="Sauvegarder", command=lambda: img2.save("le bleu a été gardée dans " + nom), bg="#0093FF", fg="white", font=("Helvetica", 12))
+    # Creates the "Save" button to save the image
+    button_save = tk.Button(fenetre, text="Save", command=lambda: img2.save("blue preserved in " + nom), bg="#0093FF", fg="white", font=("Helvetica", 12))
     button_save.place(x=50, y=0)
 
 
-def diminuer():
+
+def reduce_size():
     """
-    Réduit l'image à la moitié de ses dimensions originales et affiche l'image résultante.
-    Crée également un bouton pour sauvegarder l'image réduite.
+    Reduces the image to half its original dimensions and displays the resulting image.
+    Also creates a button to save the reduced image.
 
-    Entrées :
-    - Aucune
+    Inputs:
+    - None
 
-    Sorties :
-    - Aucune (mais modifie l'état de l'interface utilisateur)
+    Outputs:
+    - None (but modifies the state of the user interface)
 
-    1. Initialise les variables et récupère l'image en appelant la fonction init().
-    2. Calcule les nouvelles dimensions de l'image réduite de moitié.
-    3. Crée une nouvelle image de dimensions réduites.
-    4. Parcourt chaque pixel de l'image originale en sautant de deux en deux et copie les valeurs dans l'image réduite.
-    5. Redimensionne l'image réduite pour l'affichage dans l'interface graphique.
-    6. Affiche l'image réduite redimensionnée dans le label_image2.
-    7. Crée un bouton "Sauvegarder" pour sauvegarder l'image réduite avec un nouveau nom.
+    1. Initializes variables and retrieves the image by calling the init() function.
+    2. Calculates the new dimensions of the image reduced by half.
+    3. Creates a new image with reduced dimensions.
+    4. Iterates through each pixel of the original image, skipping every other pixel, and copies the values to the reduced image.
+    5. Resizes the reduced image for display in the graphical interface.
+    6. Displays the resized reduced image in label_image2.
+    7. Creates a "Save" button to save the reduced image with a new name.
 
-    - Les modules os, tkinter, filedialog et PIL doivent être importés.
-    - Les champs de texte et labels label_read, label_image, label_imageB, et label_image2 doivent être définis dans l'interface utilisateur.
+    - The os, tkinter, filedialog, and PIL modules must be imported.
+    - The text fields and labels label_read, label_image, label_imageB, and label_image2 must be defined in the user interface.
 
-    - Le label_image2 affiche l'image réduite redimensionnée.
-    - Un bouton "Sauvegarder" permet de sauvegarder l'image réduite.
+    - The label_image2 displays the resized reduced image.
+    - A "Save" button allows saving the reduced image.
     """
-    # Initialise les variables et récupère l'image
+    # Initializes variables and retrieves the image
     nom, img, image_tk, l, h, img2 = init()
     
-    # Calcule les nouvelles dimensions de l'image réduite de moitié
+    # Calculates the new dimensions of the image reduced by half
     l2 = int(l / 2)
     h2 = int(h / 2)
     
-    # Crée une nouvelle image de dimensions réduites
+    # Creates a new image with reduced dimensions
     img2 = Image.new("RGB", (l2, h2))
     
-    # Parcourt chaque pixel de l'image en sautant de deux en deux et copie les valeurs dans l'image réduite
+    # Iterates through each pixel of the image, skipping every other pixel, and copies the values to the reduced image
     for x in range(0, l, 2):
         for y in range(0, h, 2):
             r, g, b = img.getpixel((x, y))
-            img2.putpixel((int(x / 2) - 1, int(y / 2) - 1), (r, g, b))
+            img2.putpixel((int(x / 2), int(y / 2)), (r, g, b))
     
-    # Redimensionne l'image réduite pour l'affichage
+    # Resizes the reduced image for display
     img2_resized = img2.resize((int(l * 250 / l / 2), int(h / (l / (l * 250 / l / 2)))))
     image_tk = ImageTk.PhotoImage(img2_resized)
     label_image2.config(image=image_tk)
     label_image2.image = image_tk
     
-    # Crée le bouton "Sauvegarder" pour sauvegarder l'image réduite
-    button_save = tk.Button(fenetre, text="Sauvegarder", command=lambda: img2.save("diminution de " + nom), bg="#0093FF", fg="white", font=("Helvetica", 12))
+    # Creates the "Save" button to save the reduced image
+    button_save = tk.Button(fenetre, text="Save", command=lambda: img2.save("reduction of " + nom), bg="#0093FF", fg="white", font=("Helvetica", 12))
     button_save.place(x=50, y=0)
 
 
-def filtre_rouge(value):
+def red_filter(value):
     """
-    Applique un filtre rouge à l'image en augmentant l'intensité du rouge.
-    Affiche l'image résultante. Crée également un bouton pour sauvegarder l'image filtrée.
+    Applies a red filter to the image by increasing the intensity of red.
+    Also creates a button to save the filtered image.
 
-    Entrées :
-    - value : intensité du filtre rouge (valeur du scale)
+    Inputs:
+    - value: intensity of the red filter (value of the scale)
 
-    Sorties :
-    - Aucune (mais modifie l'état de l'interface utilisateur)
+    Outputs:
+    - None (but modifies the state of the user interface)
 
-    1. Récupère l'intensité à partir de la valeur du scale.
-    2. Récupère le nom du fichier de l'image à partir de l'étiquette de lecture.
-    3. Ouvre l'image et obtient ses dimensions.
-    4. Redimensionne l'image pour l'affichage dans l'interface graphique.
-    5. Convertit l'image en tableau numpy pour une manipulation plus efficace.
-    6. Applique le filtre rouge en augmentant l'intensité du rouge.
-    7. Convertit le tableau numpy résultant en image PIL.
-    8. Redimensionne l'image filtrée pour l'affichage.
-    9. Affiche l'image filtrée redimensionnée dans le label_image2.
-    10. Crée un bouton "Sauvegarder" pour sauvegarder l'image filtrée avec un nouveau nom.
+    1. Retrieves the intensity from the value of the scale.
+    2. Retrieves the filename of the image from the read label.
+    3. Opens the image and gets its dimensions.
+    4. Resizes the image for display in the graphical interface.
+    5. Converts the image to a numpy array for more efficient manipulation.
+    6. Applies the red filter by increasing the intensity of red.
+    7. Converts the resulting numpy array back to a PIL image.
+    8. Resizes the filtered image for display.
+    9. Displays the resized filtered image in label_image2.
+    10. Creates a "Save" button to save the filtered image with a new name.
 
-    - Les modules os, tkinter, filedialog et PIL doivent être importés.
-    - Les modules numpy doivent être importés.
-    - Les champs de texte et labels label_read, label_image, label_imageB, et label_image2 doivent être définis dans l'interface utilisateur.
+    - The os, tkinter, filedialog, and PIL modules must be imported.
+    - The numpy modules must be imported.
+    - The text fields and labels label_read, label_image, label_imageB, and label_image2 must be defined in the user interface.
 
-    - Le label_image2 affiche l'image filtrée redimensionnée.
-    - Un bouton "Sauvegarder" permet de sauvegarder l'image filtrée.
+    - The label_image2 displays the resized filtered image.
+    - A "Save" button allows saving the filtered image.
     """
     label_imageB.config(image="")
     label_imageB.place(x=0, y=0)
     
-    # Obtenir l'intensité à partir de la valeur du scale
-    intensite = int(value)
+    # Get the intensity from the scale value
+    intensity = int(value)
     
-    # Obtenir le nom du fichier de l'image à partir de l'étiquette de lecture
+    # Get the filename of the image from the read label
     nom = label_read.get()
     
-    # Ouvrir l'image
+    # Open the image
     img = Image.open(nom)
     
-    # Obtenir les dimensions de l'image
+    # Get the dimensions of the image
     l, h = img.size
     
-    # Redimensionner l'image pour l'affichage
+    # Resize the image for display
     img_resized = img.resize((int(l * 250 / l), int(h / (l / (l * 250 / l)))))
     image_tk = ImageTk.PhotoImage(img_resized)
     label_image.config(image=image_tk)
     label_image.image = image_tk
     
-    # Conversion de l'image en tableau numpy pour une manipulation plus efficace
-    img_array = np.array(img)
-    
-    # Appliquer le filtre rouge en augmentant l'intensité du rouge
-    img_array[:,:,0] = np.minimum(img_array[:,:,0] + 255 * intensite / 100, 255)
-    
-    # Assurer que les valeurs restent dans l'intervalle [0, 255]
-    img_array[:,:,0] = np.minimum(img_array[:,:,0], 255)
-    
-    # Convertir le tableau numpy résultant en image PIL
-    img_filtree = Image.fromarray(np.uint8(img_array))
-    
-    # Redimensionner l'image filtrée pour l'affichage
-    img2_resized = img_filtree.resize((int(l * 250 / l), int(h / (l / (l * 250 / l)))))
-    image_tk = ImageTk.PhotoImage(img2_resized)
-    label_image2.config(image=image_tk)
-    label_image2.image = image_tk
-    
-    # Redimensionner l'image filtrée pour la sauvegarde
-    img_save = img_filtree.resize((l, h))
-    
-    # Créer le bouton "Sauvegarder" pour enregistrer l'image filtrée
-    button_save = tk.Button(fenetre, text="Sauvegarder", command=lambda: img_save.save("filtre rouge sur " + nom), bg="#0093FF", fg="white", font=("Helvetica", 12))
-    button_save.place(x=50, y=0)
+    # Convert the image to
 
 
 
-def filtre_vert(value):
+def green_filter(value):
     """
-    Applique un filtre vert à l'image en augmentant l'intensité du vert.
-    Affiche l'image résultante. Crée également un bouton pour sauvegarder l'image filtrée.
+    Applies a green filter to the image by increasing the intensity of green.
+    Displays the resulting image. Also creates a button to save the filtered image.
 
-    Entrées :
-    - value : intensité du filtre vert (valeur du scale)
+    Inputs:
+    - value: intensity of the green filter (scale value)
 
-    Sorties :
-    - Aucune (mais modifie l'état de l'interface utilisateur)
+    Outputs:
+    - None (but modifies the state of the user interface)
 
-    1. Récupère l'intensité à partir de la valeur du scale.
-    2. Récupère le nom du fichier de l'image à partir de l'étiquette de lecture.
-    3. Ouvre l'image et obtient ses dimensions.
-    4. Redimensionne l'image pour l'affichage dans l'interface graphique.
-    5. Convertit l'image en tableau numpy pour une manipulation plus efficace.
-    6. Applique le filtre vert en augmentant l'intensité du vert.
-    7. Convertit le tableau numpy résultant en image PIL.
-    8. Redimensionne l'image filtrée pour l'affichage.
-    9. Affiche l'image filtrée redimensionnée dans le label_image2.
-    10. Crée un bouton "Sauvegarder" pour sauvegarder l'image filtrée avec un nouveau nom.
+    1. Retrieves the intensity from the scale value.
+    2. Retrieves the filename of the image from the read label.
+    3. Opens the image and gets its dimensions.
+    4. Resizes the image for display in the graphical interface.
+    5. Converts the image to a numpy array for more efficient manipulation.
+    6. Applies the green filter by increasing the intensity of the green channel.
+    7. Converts the resulting numpy array back to a PIL image.
+    8. Resizes the filtered image for display.
+    9. Displays the resized filtered image in label_image2.
+    10. Creates a "Save" button to save the filtered image with a new name.
 
-    - Les modules os, tkinter, filedialog et PIL doivent être importés.
-    - Les modules numpy doivent être importés.
-    - Les champs de texte et labels label_read, label_image, label_imageB, et label_image2 doivent être définis dans l'interface utilisateur.
+    - The os, tkinter, filedialog, and PIL modules must be imported.
+    - The numpy modules must be imported.
+    - The text fields and labels label_read, label_image, label_imageB, and label_image2 must be defined in the user interface.
 
-    - Le label_image2 affiche l'image filtrée redimensionnée.
-    - Un bouton "Sauvegarder" permet de sauvegarder l'image filtrée.
+    - The label_image2 displays the resized filtered image.
+    - A "Save" button allows saving the filtered image.
     """
     label_imageB.config(image="")
     label_imageB.place(x=0, y=0)
     
-    # Obtenir l'intensité à partir de la valeur du scale
-    intensite = int(value)
+    # Get the intensity from the scale value
+    intensity = int(value)
     
-    # Obtenir le nom du fichier de l'image à partir de l'étiquette de lecture
+    # Get the filename of the image from the read label
     nom = label_read.get()
     
-    # Ouvrir l'image
+    # Open the image
     img = Image.open(nom)
     
-    # Obtenir les dimensions de l'image
+    # Get the dimensions of the image
     l, h = img.size
     
-    # Redimensionner l'image pour l'affichage
+    # Resize the image for display
     img_resized = img.resize((int(l * 250 / l), int(h / (l / (l * 250 / l)))))
     image_tk = ImageTk.PhotoImage(img_resized)
     label_image.config(image=image_tk)
     label_image.image = image_tk
     
-    # Conversion de l'image en tableau numpy pour une manipulation plus efficace
+    # Convert the image to a numpy array for more efficient manipulation
     img_array = np.array(img)
     
-    # Appliquer le filtre vert en augmentant l'intensité du canal vert
-    img_array[:,:,1] = np.minimum(img_array[:,:,1] + 255 * intensite / 100, 255)
+    # Apply the green filter by increasing the intensity of the green channel
+    img_array[:,:,1] = np.minimum(img_array[:,:,1] + 255 * intensity / 100, 255)
     
-    # Assurer que les valeurs restent dans l'intervalle [0, 255]
+    # Ensure the values stay within the range [0, 255]
     img_array[:,:,1] = np.minimum(img_array[:,:,1], 255)
     
-    # Convertir le tableau numpy résultant en image PIL
-    img_filtree = Image.fromarray(np.uint8(img_array))
+    # Convert the resulting numpy array back to a PIL image
+    img_filtered = Image.fromarray(np.uint8(img_array))
     
-    # Redimensionner l'image filtrée pour l'affichage
-    img2_resized = img_filtree.resize((int(l * 250 / l), int(h / (l / (l * 250 / l)))))
+    # Resize the filtered image for display
+    img2_resized = img_filtered.resize((int(l * 250 / l), int(h / (l / (l * 250 / l)))))
     image_tk = ImageTk.PhotoImage(img2_resized)
     label_image2.config(image=image_tk)
     label_image2.image = image_tk
     
-    # Redimensionner l'image filtrée pour la sauvegarde
-    img_save = img_filtree.resize((l, h))
+    # Resize the filtered image for saving
+    img_save = img_filtered.resize((l, h))
     
-    # Créer le bouton "Sauvegarder" pour enregistrer l'image filtrée
-    button_save = tk.Button(fenetre, text="Sauvegarder", command=lambda: img_save.save("filtre vert sur " + nom), bg="#0093FF", fg="white", font=("Helvetica", 12))
+    # Create the "Save" button to save the filtered image
+    button_save = tk.Button(fenetre, text="Save", command=lambda: img_save.save("green filter on " + nom), bg="#0093FF", fg="white", font=("Helvetica", 12))
     button_save.place(x=50, y=0)
 
 
 
-def filtre_bleu(value):
+def blue_filter(value):
     """
-    Applique un filtre bleu à l'image en augmentant l'intensité du bleu.
-    Affiche l'image résultante. Crée également un bouton pour sauvegarder l'image filtrée.
+    Applies a blue filter to the image by increasing the intensity of blue.
+    Displays the resulting image. Also creates a button to save the filtered image.
 
-    Entrées :
-    - value : intensité du filtre bleu (valeur du scale)
+    Inputs:
+    - value: intensity of the blue filter (scale value)
 
-    Sorties :
-    - Aucune (mais modifie l'état de l'interface utilisateur)
+    Outputs:
+    - None (but modifies the state of the user interface)
 
-    1. Récupère l'intensité à partir de la valeur du scale.
-    2. Récupère le nom du fichier de l'image à partir de l'étiquette de lecture.
-    3. Ouvre l'image et obtient ses dimensions.
-    4. Redimensionne l'image pour l'affichage dans l'interface graphique.
-    5. Convertit l'image en tableau numpy pour une manipulation plus efficace.
-    6. Applique le filtre bleu en augmentant l'intensité du bleu.
-    7. Convertit le tableau numpy résultant en image PIL.
-    8. Redimensionne l'image filtrée pour l'affichage.
-    9. Affiche l'image filtrée redimensionnée dans le label_image2.
-    10. Crée un bouton "Sauvegarder" pour sauvegarder l'image filtrée avec un nouveau nom.
+    1. Retrieves the intensity from the scale value.
+    2. Retrieves the filename of the image from the read label.
+    3. Opens the image and gets its dimensions.
+    4. Resizes the image for display in the graphical interface.
+    5. Converts the image to a numpy array for more efficient manipulation.
+    6. Applies the blue filter by increasing the intensity of the blue channel.
+    7. Converts the resulting numpy array back to a PIL image.
+    8. Resizes the filtered image for display.
+    9. Displays the resized filtered image in label_image2.
+    10. Creates a "Save" button to save the filtered image with a new name.
 
-    - Les modules os, tkinter, filedialog et PIL doivent être importés.
-    - Les modules numpy doivent être importés.
-    - Les champs de texte et labels label_read, label_image, label_imageB, et label_image2 doivent être définis dans l'interface utilisateur.
+    - The os, tkinter, filedialog, and PIL modules must be imported.
+    - The numpy modules must be imported.
+    - The text fields and labels label_read, label_image, label_imageB, and label_image2 must be defined in the user interface.
 
-    - Le label_image2 affiche l'image filtrée redimensionnée.
-    - Un bouton "Sauvegarder" permet de sauvegarder l'image filtrée.
+    - The label_image2 displays the resized filtered image.
+    - A "Save" button allows saving the filtered image.
     """
     label_imageB.config(image="")
     label_imageB.place(x=0, y=0)
     
-    # Obtenir l'intensité à partir de la valeur du scale
-    intensite = int(value)
+    # Get the intensity from the scale value
+    intensity = int(value)
     
-    # Obtenir le nom du fichier de l'image à partir de l'étiquette de lecture
+    # Get the filename of the image from the read label
     nom = label_read.get()
     
-    # Ouvrir l'image
+    # Open the image
     img = Image.open(nom)
     
-    # Obtenir les dimensions de l'image
+    # Get the dimensions of the image
     l, h = img.size
     
-    # Redimensionner l'image pour l'affichage
+    # Resize the image for display
     img_resized = img.resize((int(l * 250 / l), int(h / (l / (l * 250 / l)))))
     image_tk = ImageTk.PhotoImage(img_resized)
     label_image.config(image=image_tk)
     label_image.image = image_tk
     
-    # Conversion de l'image en tableau numpy pour une manipulation plus efficace
+    # Convert the image to a numpy array for more efficient manipulation
     img_array = np.array(img)
     
-    # Appliquer le filtre bleu en augmentant l'intensité du bleu
-    img_array[:,:,2] = np.minimum(img_array[:,:,2] + 255 * intensite / 100, 255)
+    # Apply the blue filter by increasing the intensity of the blue channel
+    img_array[:,:,2] = np.minimum(img_array[:,:,2] + 255 * intensity / 100, 255)
     
-    # Assurer que les valeurs restent dans l'intervalle [0, 255]
+    # Ensure the values stay within the range [0, 255]
     img_array[:,:,2] = np.minimum(img_array[:,:,2], 255)
     
-    # Convertir le tableau numpy résultant en image PIL
-    img_filtree = Image.fromarray(np.uint8(img_array))
+    # Convert the resulting numpy array back to a PIL image
+    img_filtered = Image.fromarray(np.uint8(img_array))
     
-    # Redimensionner l'image filtrée pour l'affichage
-    img2_resized = img_filtree.resize((int(l * 250 / l), int(h / (l / (l * 250 / l)))))
+    # Resize the filtered image for display
+    img2_resized = img_filtered.resize((int(l * 250 / l), int(h / (l / (l * 250 / l)))))
     image_tk = ImageTk.PhotoImage(img2_resized)
     label_image2.config(image=image_tk)
     label_image2.image = image_tk
     
-    # Redimensionner l'image filtrée pour la sauvegarde
-    img_save = img_filtree.resize((l, h))
+    # Resize the filtered image for saving
+    img_save = img_filtered.resize((l, h))
     
-    # Créer le bouton "Sauvegarder" pour enregistrer l'image filtrée
-    button_save = tk.Button(fenetre, text="Sauvegarder", command=lambda: img_save.save("filtre bleu sur " + nom), bg="#0093FF", fg="white", font=("Helvetica", 12))
+    # Create the "Save" button to save the filtered image
+    button_save = tk.Button(fenetre, text="Save", command=lambda: img_save.save("blue filter on " + nom), bg="#0093FF", fg="white", font=("Helvetica", 12))
     button_save.place(x=50, y=0)
+
 
 
 def clair(value):

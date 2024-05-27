@@ -798,481 +798,473 @@ def blue_filter(value):
 
 
 
-def clair(value):
+def brighten(value):
     """
-    Applique un filtre d'éclaircissement à l'image en augmentant l'intensité des couleurs.
-    Affiche l'image résultante. Crée également un bouton pour sauvegarder l'image éclaircie.
+    Applies a brightening filter to the image by increasing color intensity.
+    Displays the resulting image. Also creates a button to save the brightened image.
 
-    Entrées :
-    - value : intensité du filtre d'éclaircissement (valeur du scale)
+    Inputs:
+    - value: intensity of the brightening filter (value from the scale)
 
-    Sorties :
-    - Aucune (mais modifie l'état de l'interface utilisateur)
+    Outputs:
+    - None (but modifies the state of the user interface)
 
-    1. Récupère l'intensité à partir de la valeur du scale.
-    2. Récupère le nom du fichier de l'image à partir de l'étiquette de lecture.
-    3. Ouvre l'image et obtient ses dimensions.
-    4. Convertit l'image en tableau numpy pour une manipulation plus efficace.
-    5. Calcule les valeurs de luminosité à ajouter à chaque couleur.
-    6. Applique l'éclaircissement à l'image en ajoutant les valeurs de luminosité aux pixels.
-    7. Assure que les valeurs restent dans l'intervalle [0, 255].
-    8. Convertit le tableau numpy résultant en image PIL.
-    9. Redimensionne l'image d'origine pour l'affichage dans l'interface graphique.
-    10. Affiche l'image d'origine redimensionnée dans le label_image.
-    11. Redimensionne l'image éclaircie pour l'affichage.
-    12. Affiche l'image éclaircie redimensionnée dans le label_image2.
-    13. Redimensionne l'image éclaircie pour la sauvegarde.
-    14. Crée un bouton "Sauvegarder" pour enregistrer l'image éclaircie.
+    1. Retrieve the intensity from the scale value.
+    2. Get the filename of the image from the read label.
+    3. Open the image and get its dimensions.
+    4. Convert the image to a numpy array for more efficient manipulation.
+    5. Calculate brightness values to be added to each color.
+    6. Apply brightening to the image by adding brightness values to the pixels.
+    7. Ensure that values remain within the range [0, 255].
+    8. Convert the resulting numpy array back to a PIL image.
+    9. Resize the original image for display in the graphical interface.
+    10. Display the resized original image in label_image.
+    11. Resize the brightened image for display.
+    12. Display the resized brightened image in label_image2.
+    13. Resize the brightened image for saving.
+    14. Create a "Save" button to save the brightened image.
 
-    - Les modules os, tkinter, filedialog et PIL doivent être importés.
-    - Les modules numpy doivent être importés.
-    - Les champs de texte et labels label_read, label_image, label_imageB, et label_image2 doivent être définis dans l'interface utilisateur.
-
-    - Le label_image2 affiche l'image éclaircie redimensionnée.
-    - Un bouton "Sauvegarder" permet de sauvegarder l'image éclaircie.
+    - The label_image2 displays the resized brightened image.
+    - A "Save" button allows saving the brightened image.
     """
     label_imageB.config(image="")
     label_imageB.place(x=0, y=0)
     
-    # Obtenir l'intensité à partir de la valeur du scale
-    intensite = int(value)
+    # Get the intensity from the scale value
+    intensity = int(value)
     
-    # Obtenir le nom du fichier de l'image à partir de l'étiquette de lecture
-    nom = label_read.get()
+    # Get the filename of the image from the read label
+    filename = label_read.get()
     
-    # Ouvrir l'image
-    img = Image.open(nom)
+    # Open the image
+    img = Image.open(filename)
     
-    # Obtenir les dimensions de l'image
-    l, h = img.size
+    # Get the dimensions of the image
+    width, height = img.size
     
-    # Conversion de l'image en tableau numpy pour une manipulation plus efficace
+    # Convert the image to a numpy array for more efficient manipulation
     img_array = np.array(img)
     
-    # Calcul des valeurs de luminosité à appliquer à chaque couleur
-    bright_values = np.array([intensite, intensite, intensite]) * 255 / 100
+    # Calculate brightness values to apply to each color
+    bright_values = np.array([intensity, intensity, intensity]) * 255 / 100
     
-    # Appliquer l'éclaircissement à l'image en ajoutant les valeurs de luminosité aux pixels
-    img_eclairee_array = img_array + bright_values
+    # Apply brightening to the image by adding brightness values to the pixels
+    brightened_img_array = img_array + bright_values
     
-    # Assurer que les valeurs restent dans l'intervalle [0, 255]
-    img_eclairee_array = np.minimum(img_eclairee_array, 255)
+    # Ensure that values remain within the range [0, 255]
+    brightened_img_array = np.minimum(brightened_img_array, 255)
     
-    # Convertir le tableau numpy résultant en image PIL
-    img_eclairee = Image.fromarray(np.uint8(img_eclairee_array))
+    # Convert the resulting numpy array back to a PIL image
+    brightened_img = Image.fromarray(np.uint8(brightened_img_array))
     
-    # Redimensionner l'image d'origine pour l'affichage
-    img_resized = img.resize((int(l * 250 / l), int(h / (l / (l * 250 / l)))))
-    image_tk = ImageTk.PhotoImage(img_resized)
+    # Resize the original image for display
+    resized_img = img.resize((int(width * 250 / width), int(height / (width / (width * 250 / width)))))
+    image_tk = ImageTk.PhotoImage(resized_img)
     label_image.config(image=image_tk)
     label_image.image = image_tk
     
-    # Redimensionner l'image éclaircie pour l'affichage
-    img2_resized = img_eclairee.resize((int(l * 250 / l), int(h / (l / (l * 250 / l)))))
-    image_tk = ImageTk.PhotoImage(img2_resized)
+    # Resize the brightened image for display
+    resized_brightened_img = brightened_img.resize((int(width * 250 / width), int(height / (width / (width * 250 / width)))))
+    image_tk = ImageTk.PhotoImage(resized_brightened_img)
     label_image2.config(image=image_tk)
     label_image2.image = image_tk
     
-    # Redimensionner l'image éclaircie pour la sauvegarde
-    img_save = img_eclairee.resize((l, h))
+    # Resize the brightened image for saving
+    saved_brightened_img = brightened_img.resize((width, height))
     
-    # Créer le bouton "Sauvegarder" pour enregistrer l'image éclaircie
-    button_save = tk.Button(fenetre, text="Sauvegarder", command=lambda: img_save.save("eclaircicement de " + nom), bg="#0093FF", fg="white", font=("Helvetica", 12))
+    # Create the "Save" button to save the brightened image
+    button_save = tk.Button(fenetre, text="Save", command=lambda: saved_brightened_img.save("brightening of " + filename), bg="#0093FF", fg="white", font=("Helvetica", 12))
     button_save.place(x=50, y=0)
 
 
-def sombre(value):
+
+def darken(value):
     """
-    Applique un filtre d'assombrissement à l'image en réduisant l'intensité des couleurs.
-    Affiche l'image résultante. Crée également un bouton pour sauvegarder l'image assombrie.
+    Applies a darkening filter to the image by reducing color intensity.
+    Displays the resulting image. Also creates a button to save the darkened image.
 
-    Entrées :
-    - value : intensité du filtre d'assombrissement (valeur du scale)
+    Inputs:
+    - value: intensity of the darkening filter (value from the scale)
 
-    Sorties :
-    - Aucune (mais modifie l'état de l'interface utilisateur)
+    Outputs:
+    - None (but modifies the state of the user interface)
 
-    1. Récupère l'intensité à partir de la valeur du scale.
-    2. Récupère le nom du fichier de l'image à partir de l'étiquette de lecture.
-    3. Ouvre l'image et obtient ses dimensions.
-    4. Convertit l'image en tableau numpy pour une manipulation plus efficace.
-    5. Calcule les valeurs sombres à appliquer à chaque couleur.
-    6. Applique l'assombrissement à l'image en soustrayant les valeurs sombres des pixels.
-    7. Assure que les valeurs restent dans l'intervalle [0, 255].
-    8. Convertit le tableau numpy résultant en image PIL.
-    9. Redimensionne l'image assombrie pour l'affichage dans l'interface graphique.
-    10. Affiche l'image assombrie redimensionnée dans le label_image2.
-    11. Redimensionne l'image assombrie pour la sauvegarde.
-    12. Crée un bouton "Sauvegarder" pour enregistrer l'image assombrie.
+    1. Retrieve the intensity from the scale value.
+    2. Get the filename of the image from the read label.
+    3. Open the image and get its dimensions.
+    4. Resize the image for display.
+    5. Convert the resized image to ImageTk for display.
+    6. Convert the image to a numpy array for more efficient manipulation.
+    7. Calculate dark values to apply to each color.
+    8. Apply darkening to the image by subtracting dark values from the pixels.
+    9. Ensure that values remain within the range [0, 255].
+    10. Convert the resulting numpy array back to a PIL image.
+    11. Resize the darkened image for display.
+    12. Update the image in the graphical interface.
+    13. Resize the darkened image for saving.
+    14. Create a "Save" button to save the darkened image.
 
-    - Les modules os, tkinter, filedialog et PIL doivent être importés.
-    - Les modules numpy doivent être importés.
-    - Les champs de texte et labels label_read, label_image, label_imageB, et label_image2 doivent être définis dans l'interface utilisateur.
-
-    - Le label_image2 affiche l'image assombrie redimensionnée.
-    - Un bouton "Sauvegarder" permet de sauvegarder l'image assombrie.
+    - The label_image2 displays the resized darkened image.
+    - A "Save" button allows saving the darkened image.
     """
     label_imageB.config(image="")
     label_imageB.place(x=0, y=0)
     
-    # Obtenir l'intensité à partir de l'échelle de sombre
-    intensite = int(value)
+    # Get the intensity from the dark scale
+    intensity = int(value)
     
-    # Obtenir le nom du fichier de l'image à partir de l'étiquette de lecture
-    nom = label_read.get()
+    # Get the filename of the image from the read label
+    filename = label_read.get()
     
-    # Ouvrir l'image
-    img = Image.open(nom)
+    # Open the image
+    img = Image.open(filename)
     
-    # Obtenir les dimensions de l'image
-    l, h = img.size
+    # Get the dimensions of the image
+    width, height = img.size
     
-    # Redimensionner l'image pour affichage
-    img_resized = img.resize((int(l * 250 / l), int(h / (l / (l * 250 / l)))))
+    # Resize the image for display
+    resized_img = img.resize((int(width * 250 / width), int(height / (width / (width * 250 / width)))))
     
-    # Convertir l'image redimensionnée en ImageTk pour l'affichage
-    image_tk = ImageTk.PhotoImage(img_resized)
+    # Convert the resized image to ImageTk for display
+    image_tk = ImageTk.PhotoImage(resized_img)
     label_image.config(image=image_tk)
     label_image.image = image_tk
     
-    # Conversion de l'image en tableau numpy pour une manipulation plus efficace
+    # Convert the image to a numpy array for more efficient manipulation
     img_array = np.array(img)
     
-    # Calcul des valeurs sombres à appliquer à chaque couleur
-    dark_values = np.array([intensite, intensite, intensite]) * 255 / 100
+    # Calculate dark values to apply to each color
+    dark_values = np.array([intensity, intensity, intensity]) * 255 / 100
     
-    # Appliquer l'assombrissement à l'image en soustrayant les valeurs sombres des pixels
-    img2_array = img_array - dark_values
+    # Apply darkening to the image by subtracting dark values from the pixels
+    darkened_img_array = img_array - dark_values
     
-    # Assurer que les valeurs restent dans l'intervalle [0, 255]
-    img2_array = np.maximum(img2_array, 0)
+    # Ensure that values remain within the range [0, 255]
+    darkened_img_array = np.maximum(darkened_img_array, 0)
     
-    # Convertir le tableau numpy résultant en image PIL
-    img2 = Image.fromarray(np.uint8(img2_array))
+    # Convert the resulting numpy array back to a PIL image
+    darkened_img = Image.fromarray(np.uint8(darkened_img_array))
     
-    # Redimensionner l'image assombrie pour affichage
-    img2_resized = img2.resize((int(l * 250 / l), int(h / (l / (l * 250 / l)))))
+    # Resize the darkened image for display
+    resized_darkened_img = darkened_img.resize((int(width * 250 / width), int(height / (width / (width * 250 / width)))))
     
-    # Mettre à jour l'image dans l'interface graphique
-    image_tk = ImageTk.PhotoImage(img2_resized)
+    # Update the image in the graphical interface
+    image_tk = ImageTk.PhotoImage(resized_darkened_img)
     label_image2.config(image=image_tk)
     label_image2.image = image_tk
     
-    # Redimensionner l'image assombrie pour la sauvegarde
-    img_save = img2.resize((l,h))
+    # Resize the darkened image for saving
+    saved_darkened_img = darkened_img.resize((width, height))
     
-    # Créer le bouton "Sauvegarder" pour enregistrer l'image assombrie
-    button_save = tk.Button(fenetre, text="Sauvegarder", command=lambda: img_save.save("assombrissement de " + nom), bg="#0093FF", fg="white", font=("Helvetica", 12))
+    # Create the "Save" button to save the darkened image
+    button_save = tk.Button(fenetre, text="Save", command=lambda: saved_darkened_img.save("darkening of " + filename), bg="#0093FF", fg="white", font=("Helvetica", 12))
     button_save.place(x=50, y=0)
 
 
-def pixel(value):
+
+def pixelization(value):
     """
-    Applique un effet de pixelisation à l'image en remplaçant les blocs de pixels par des pixels uniques.
-    Affiche l'image résultante. Crée également un bouton pour sauvegarder l'image pixelisée.
+    Applies a pixelation effect to the image by replacing blocks of pixels with single pixels.
+    Displays the resulting image. Also creates a button to save the pixelated image.
 
-    Entrées :
-    - value : intensité de la pixelisation (valeur du scale)
+    Inputs:
+    - value: intensity of the pixelation (value from the scale)
 
-    Sorties :
-    - Aucune (mais modifie l'état de l'interface utilisateur)
+    Outputs:
+    - None (but modifies the state of the user interface)
 
-    1. Récupère l'intensité à partir de la valeur du scale.
-    2. Récupère le nom du fichier de l'image à partir de l'étiquette de lecture.
-    3. Ouvre l'image et obtient ses dimensions.
-    4. Convertit l'image en tableau numpy pour une manipulation plus efficace.
-    5. Applique la pixelisation en remplaçant les blocs de pixels par des pixels uniques.
-    6. Convertit le tableau numpy résultant en image PIL.
-    7. Redimensionne l'image pixelisée pour l'affichage dans l'interface graphique.
-    8. Affiche l'image pixelisée redimensionnée dans le label_image2.
-    9. Redimensionne l'image pixelisée pour la sauvegarde.
-    10. Crée un bouton "Sauvegarder" pour enregistrer l'image pixelisée.
+    1. Retrieve the intensity from the scale value.
+    2. Get the filename of the image from the read label.
+    3. Open the image and get its dimensions.
+    4. Convert the image to a numpy array for more efficient manipulation.
+    5. Apply pixelation by replacing blocks of pixels with single pixels.
+    6. Convert the resulting numpy array back to a PIL image.
+    7. Resize the pixelated image for display in the graphical interface.
+    8. Display the resized pixelated image in label_image2.
+    9. Resize the pixelated image for saving.
+    10. Create a "Save" button to save the pixelated image.
 
-    - Les modules os, tkinter, filedialog et PIL doivent être importés.
-    - Les modules numpy doivent être importés.
-    - Les champs de texte et labels label_read, label_image, label_imageB, et label_image2 doivent être définis dans l'interface utilisateur.
-
-    - Le label_image2 affiche l'image pixelisée redimensionnée.
-    - Un bouton "Sauvegarder" permet de sauvegarder l'image pixelisée.
+    - The label_image2 displays the resized pixelated image.
+    - A "Save" button allows saving the pixelated image.
     """
     label_imageB.config(image="")
     label_imageB.place(x=0, y=0)
     
-    # Obtenir l'intensité à partir de l'échelle de sombre
-    intensite = int(value)
+    # Get the intensity from the pixelation scale
+    intensity = int(value)
     
-    # Obtenir le nom du fichier de l'image à partir de l'étiquette de lecture
-    nom = label_read.get()
+    # Get the filename of the image from the read label
+    filename = label_read.get()
     
-    # Ouvrir l'image
-    img = Image.open(nom)
+    # Open the image
+    img = Image.open(filename)
     
-    # Obtenir les dimensions de l'image
-    l, h = img.size
+    # Get the dimensions of the image
+    width, height = img.size
     
-    # Redimensionner l'image pour affichage
-    img_resized = img.resize((int(l * 250 / l), int(h / (l / (l * 250 / l)))))
+    # Resize the image for display
+    resized_img = img.resize((int(width * 250 / width), int(height / (width / (width * 250 / width)))))
     
-    # Convertir l'image redimensionnée en ImageTk pour l'affichage
-    image_tk = ImageTk.PhotoImage(img_resized)
+    # Convert the resized image to ImageTk for display
+    image_tk = ImageTk.PhotoImage(resized_img)
     label_image.config(image=image_tk)
     label_image.image = image_tk
     
-    # Conversion de l'image en tableau numpy pour une manipulation plus efficace
+    # Convert the image to a numpy array for more efficient manipulation
     img_array = np.array(img)
     img2_array = np.zeros_like(img_array)
     
-    # Pixelisation de l'image en remplaçant les blocs par des pixels uniques
-    for x in range(0, img_array.shape[0], intensite):
-        for y in range(0, img_array.shape[1], intensite):
-            img2_array[x:x+intensite, y:y+intensite] = img_array[x, y]
+    # Pixelate the image by replacing blocks with single pixels
+    for x in range(0, img_array.shape[0], intensity):
+        for y in range(0, img_array.shape[1], intensity):
+            img2_array[x:x+intensity, y:y+intensity] = img_array[x, y]
             
-    # Conversion du tableau numpy résultant en image PIL
+    # Convert the resulting numpy array back to a PIL image
     img2 = Image.fromarray(img2_array)
 
-    # Redimensionner l'image pixelisée pour l'affichage
-    img2_resized = img2.resize((int(l * 250 / l), int(h / (l / (l * 250 / l)))))
+    # Resize the pixelated image for display
+    img2_resized = img2.resize((int(width * 250 / width), int(height / (width / (width * 250 / width)))))
     image_tk = ImageTk.PhotoImage(img2_resized)
     label_image2.config(image=image_tk)
     label_image2.image = image_tk
     
-    # Redimensionner l'image pour la sauvegarde
-    img2_resized = img2.resize((l,h))
+    # Resize the pixelated image for saving
+    img2_resized = img2.resize((width, height))
 
-    # Créer le bouton "Sauvegarder" pour enregistrer l'image pixelisée
-    button_save = tk.Button(fenetre, text="Sauvegarder", command=lambda: img2_resized.save("pixelisation de " + nom), bg="#0093FF", fg="white", font=("Helvetica", 12))
+    # Create the "Save" button to save the pixelated image
+    button_save = tk.Button(fenetre, text="Save", command=lambda: img2_resized.save("pixelization of " + filename), bg="#0093FF", fg="white", font=("Helvetica", 12))
     button_save.place(x=50, y=0)
 
 
-def vive():
+def vivid():
     """
-    Applique un effet "vive" à l'image en augmentant l'intensité des couleurs dominantes.
-    Affiche l'image résultante. Crée également un bouton pour sauvegarder l'image résultante.
+    Applies a "vivid" effect to the image by increasing the intensity of dominant colors.
+    Displays the resulting image. Also creates a button to save the resulting image.
 
-    - Les modules os, tkinter, filedialog et PIL doivent être importés.
-    - Les champs de texte et labels label_read, label_image, label_image2 doivent être définis dans l'interface utilisateur.
+    - The os, tkinter, filedialog, and PIL modules must be imported.
+    - The text fields and labels label_read, label_image, label_image2 must be defined in the user interface.
 
-    - Le label_image2 affiche l'image avec l'effet "vive".
-    - Un bouton "Sauvegarder" permet de sauvegarder l'image résultante.
+    - The label_image2 displays the image with the "vivid" effect.
+    - A "Save" button allows saving the resulting image.
     """
-    # Initialise les variables et récupère l'image
-    nom, img, image_tk, l, h, img2 = init()
+    # Initialize variables and retrieve the image
+    filename, img, image_tk, width, height, img2 = init()
     
-    # Parcourt chaque pixel de l'image et ajuste les valeurs pour rendre l'image "vive"
-    for x in range(0, l):
-        for y in range(0, h):
+    # Iterate through each pixel of the image and adjust values to make the image "vivid"
+    for x in range(0, width):
+        for y in range(0, height):
             r, g, b = img.getpixel((x, y))
             
-            # Si le canal rouge est le plus grand, intensifie la couleur rouge et supprime les autres canaux
+            # If the red channel is the largest, intensify the red color and remove other channels
             if r > b and r > g:
                 r = 255
                 g = 0
                 b = 0
             
-            # Si le canal vert est le plus grand, intensifie la couleur verte et supprime les autres canaux
+            # If the green channel is the largest, intensify the green color and remove other channels
             if g > r and g > b:
                 g = 255
                 r = 0
                 b = 0
             
-            # Si le canal bleu est le plus grand, intensifie la couleur bleue et supprime les autres canaux
+            # If the blue channel is the largest, intensify the blue color and remove other channels
             if b > r and b > g:
                 b = 255
                 r = 0
                 g = 0
             
-            # Place les valeurs ajustées dans l'image résultante
+            # Place the adjusted values into the resulting image
             img2.putpixel((x, y), (r, g, b))
     
-    # Redimensionne l'image résultante pour l'affichage
-    img2_resized = img2.resize((int(l * 250 / l), int(h / (l / (l * 250 / l)))))
+    # Resize the resulting image for display
+    img2_resized = img2.resize((int(width * 250 / width), int(height / (width / (width * 250 / width)))))
     image_tk = ImageTk.PhotoImage(img2_resized)
     label_image2.config(image=image_tk)
     label_image2.image = image_tk
     
-    # Crée le bouton "Sauvegarder" pour sauvegarder l'image résultante
-    button_save = tk.Button(fenetre, text="Sauvegarder", command=lambda: img2.save("vive de " + nom), bg="#0093FF", fg="white", font=("Helvetica", 12))
+    # Create the "Save" button to save the resulting image
+    button_save = tk.Button(fenetre, text="Save", command=lambda: img2.save("vivid of " + filename), bg="#0093FF", fg="white", font=("Helvetica", 12))
     button_save.place(x=50, y=0)
 
 
-def melange():
+def mix():
     """
-    Mélange deux images en plaçant alternativement les pixels de chacune dans une nouvelle image.
-    Affiche l'image résultante. Crée également un bouton pour sauvegarder l'image résultante.
+    Mixes two images by alternately placing the pixels of each into a new image.
+    Displays the resulting image. Also creates a button to save the resulting image.
 
-    - Les modules os, tkinter, filedialog et PIL doivent être importés.
-    - Les champs de texte et labels label_read, label_read2, label_image, label_imageB, label_image2 doivent être définis dans l'interface utilisateur.
+    - The os, tkinter, filedialog, and PIL modules must be imported.
+    - The text fields and labels label_read, label_read2, label_image, label_imageB, label_image2 must be defined in the user interface.
 
-    - Le label_image2 affiche l'image résultante du mélange.
-    - Un bouton "Sauvegarder" permet de sauvegarder l'image résultante.
+    - The label_image2 displays the resulting mixed image.
+    - A "Save" button allows saving the resulting image.
     """
-    # Initialise les variables et récupère les images
-    nom, img, image_tk, l, h, img2 = init()
-    nom2 = label_read2.get()
-    img2 = Image.open(nom2)
-    l2, h2 = img2.size
+    # Initialize variables and retrieve the images
+    name, img, image_tk, width, height, img2 = init()
+    name2 = label_read2.get()
+    img2 = Image.open(name2)
+    width2, height2 = img2.size
     
-    # Détermine les dimensions de l'image résultante en fonction des dimensions des deux images d'entrée
-    L = min(l, l2)
-    H = min(h, h2)
+    # Determine the dimensions of the resulting image based on the dimensions of the two input images
+    new_width = min(width, width2)
+    new_height = min(height, height2)
     
-    # Crée une nouvelle image résultante
-    img3 = Image.new("RGB", (L, H))
+    # Create a new resulting image
+    img3 = Image.new("RGB", (new_width, new_height))
     
-    # Affiche la deuxième image dans une zone dédiée de l'interface graphique
-    label_imageB.place(x=700, y=int(h / (l / (l * 250 / l)) + 60))
-    img2_resized = img2.resize((int(l2 * 250 / l2), int(h2 / (l2 / (l2 * 250 / l2)))))
+    # Display the second image in a dedicated area of the graphical interface
+    label_imageB.place(x=700, y=int(height / (width / (width * 250 / width)) + 60))
+    img2_resized = img2.resize((int(width2 * 250 / width2), int(height2 / (width2 / (width2 * 250 / width2)))))
     image_tk = ImageTk.PhotoImage(img2_resized)
     label_imageB.config(image=image_tk)
     label_imageB.image = image_tk
     
-    # Parcourt chaque pixel des deux images et les place alternativement dans l'image résultante
-    for x in range(0, L, 2):
-        for y in range(0, H, 2):
+    # Iterate through each pixel of the two images and alternately place them in the resulting image
+    for x in range(0, new_width, 2):
+        for y in range(0, new_height, 2):
             r, g, b = img.getpixel((x, y))
             img3.putpixel((x, y), (r, g, b))
     
-    for x in range(1, L, 2):
-        for y in range(1, H, 2):
+    for x in range(1, new_width, 2):
+        for y in range(1, new_height, 2):
             r, g, b = img2.getpixel((x, y))
             img3.putpixel((x, y), (r, g, b))
     
-    # Redimensionne l'image résultante pour l'affichage
-    img3_resized = img3.resize((int(L * 250 / L), int(H / (L / (L * 250 / L)))))
+    # Resize the resulting image for display
+    img3_resized = img3.resize((int(new_width * 250 / new_width), int(new_height / (new_width / (new_width * 250 / new_width)))))
+
     image_tk = ImageTk.PhotoImage(img3_resized)
     label_image2.config(image=image_tk)
     label_image2.image = image_tk
     
-    # Crée le bouton "Sauvegarder" pour sauvegarder l'image résultante
-    button_save = tk.Button(fenetre, text="Sauvegarder", command=lambda: img3.save("melange de " + crop(nom) + " et " + nom2), bg="#0093FF", fg="white", font=("Helvetica", 12))
+    # Create the "Save" button to save the resulting image
+    button_save = tk.Button(fenetre, text="Save", command=lambda: img3.save("mix of " + crop(name) + " and " + name2), bg="#0093FF", fg="white", font=("Helvetica", 12))
     button_save.place(x=50, y=0)
 
 
-def agrandir():
+def enlarge():
     """
-    Agrandit l'image en doublant la taille de chaque pixel.
-    Affiche l'image agrandie. Crée également un bouton pour sauvegarder l'image agrandie.
+    Enlarges the image by doubling the size of each pixel.
+    Displays the enlarged image. Also creates a button to save the enlarged image.
 
-    - Les modules os, tkinter, filedialog et PIL doivent être importés.
-    - Les champs de texte et labels label_read, label_image, label_image2 doivent être définis dans l'interface utilisateur.
+    - The os, tkinter, filedialog, and PIL modules must be imported.
+    - The text fields and labels label_read, label_image, label_image2 must be defined in the user interface.
 
-    - Le label_image2 affiche l'image agrandie.
-    - Un bouton "Sauvegarder" permet de sauvegarder l'image agrandie.
+    - The label_image2 displays the enlarged image.
+    - A "Save" button allows saving the enlarged image.
     """
-    # Initialise les variables et récupère l'image d'origine
-    nom, img, image_tk, l, h, img2 = init()
+    # Initialize variables and retrieve the original image
+    name, img, image_tk, width, height, img2 = init()
     
-    # Calcule les nouvelles dimensions de l'image agrandie
-    l2 = int(l * 2)
-    h2 = int(h * 2)
+    # Calculate the new dimensions of the enlarged image
+    new_width = int(width * 2)
+    new_height = int(height * 2)
     
-    # Crée une nouvelle image agrandie avec les nouvelles dimensions
-    img2 = Image.new("RGB", (l2, h2))
+    # Create a new enlarged image with the new dimensions
+    img2 = Image.new("RGB", (new_width, new_height))
     
-    # Parcourt chaque pixel de l'image d'origine et les place dans la nouvelle image agrandie
-    for x in range(0, l):
-        for y in range(0, h):
+    # Iterate through each pixel of the original image and place them in the new enlarged image
+    for x in range(0, width):
+        for y in range(0, height):
             r, g, b = img.getpixel((x, y))
-            # Place le pixel d'origine et ses copies dans la nouvelle image agrandie
+            # Place the original pixel and its copies in the new enlarged image
             img2.putpixel((int(x * 2) - 1, int(y * 2) - 1), (r, g, b))
             img2.putpixel((int(x * 2) - 1 + 1, int(y * 2) - 1), (r, g, b))
             img2.putpixel((int(x * 2) - 1, int(y * 2) - 1 + 1), (r, g, b))
             img2.putpixel((int(x * 2) - 1 + 1, int(y * 2) - 1 + 1), (r, g, b))
     
-    # Redimensionne l'image agrandie pour l'affichage
-    img2_resized = img2.resize((int(l * 250 / l * 2), int(h / (l / (l * 250 / l * 2)))))
-    
-    # Met à jour l'image affichée dans l'interface graphique
+    # Resize the enlarged image for display
+    img2_resized = img2.resize((int(width * 250 / width * 2), int(height / (width / (width * 250 / width * 2)))))
+
     image_tk = ImageTk.PhotoImage(img2_resized)
     label_image2.config(image=image_tk)
     label_image2.image = image_tk
     
-    # Crée le bouton "Sauvegarder" pour sauvegarder l'image agrandie
-    button_save = tk.Button(fenetre, text="Sauvegarder", command=lambda: img2.save("agrandissement de " + nom), bg="#0093FF", fg="white", font=("Helvetica", 12))
+    # Create the "Save" button to save the enlarged image
+    button_save = tk.Button(fenetre, text="Save", command=lambda: img2.save("enlargement of " + name), bg="#0093FF", fg="white", font=("Helvetica", 12))
     button_save.place(x=50, y=0)
 
-
-def contraste(value):
+def contrast(value):
     """
-    Applique un filtre de contraste à l'image.
-    Affiche l'image résultante avec le contraste ajusté.
-    Crée également un bouton pour sauvegarder l'image résultante.
+    Applies a contrast filter to the image.
+    Displays the resulting image with adjusted contrast.
+    Also creates a button to save the resulting image.
 
-    Entrées :
-    - value : intensité du filtre de contraste (valeur du scale)
+    Inputs:
+    - value: intensity of the contrast filter (value from the scale)
 
-    Sorties :
-    - Aucune (mais modifie l'état de l'interface utilisateur)
+    Outputs:
+    - None (but modifies the state of the user interface)
 
-    1. Initialise les variables nom, img, image_tk, l, h et img2 avec la fonction init().
-    2. Récupère l'intensité du filtre de contraste à partir de la valeur du scale.
-    3. Applique le filtre de contraste à l'image.
-    4. Redimensionne l'image résultante pour l'affichage dans l'interface graphique.
-    5. Affiche l'image résultante redimensionnée dans le label_image2.
-    6. Crée un bouton "Sauvegarder" pour enregistrer l'image résultante.
+    1. Initializes the variables name, img, image_tk, width, height, and img2 with the init() function.
+    2. Retrieves the intensity of the contrast filter from the scale value.
+    3. Applies the contrast filter to the image.
+    4. Resizes the resulting image for display in the graphical interface.
+    5. Displays the resized resulting image in label_image2.
+    6. Creates a "Save" button to save the resulting image.
 
-    - Les modules os, tkinter, filedialog et PIL doivent être importés.
-    - Les champs de texte et labels label_read, label_image, label_imageB et label_image2 doivent être définis dans l'interface utilisateur.
-    - La fonction init() doit être définie et renvoyer les variables nom, img, image_tk, l, h et img2.
+    - The os, tkinter, filedialog, and PIL modules must be imported.
+    - The text fields and labels label_read, label_image, label_imageB, and label_image2 must be defined in the user interface.
+    - The init() function must be defined and return the variables name, img, image_tk, width, height, and img2.
 
-    - Le label_image2 affiche l'image résultante avec le contraste ajusté.
-    - Un bouton "Sauvegarder" permet de sauvegarder l'image résultante avec le contraste ajusté.
+    - The label_image2 displays the resulting image with adjusted contrast.
+    - A "Save" button allows saving the resulting image with adjusted contrast.
     """
-    nom, img, image_tk, l, h, img2 = init()
-    intensite = scale_contraste.get()
+    name, img, image_tk, width, height, img2 = init()
+    intensity = scale_contrast.get()
     contrast = ImageEnhance.Contrast(img)
-    img2 = contrast.enhance(intensite)
+    img2 = contrast.enhance(intensity)
     
-    # Redimensionne l'image résultante pour l'affichage
-    img2_resized = img2.resize((int(l * 250 / l), int(h / (l / (l * 250 / l)))))
+    # Resize the resulting image for display
+    img2_resized = img2.resize((int(width * 250 / width), int(height / (width / (width * 250 / width)))))
     image_tk = ImageTk.PhotoImage(img2_resized)
     label_image2.config(image=image_tk)
     label_image2.image = image_tk
     
-    # Crée le bouton "Sauvegarder" pour sauvegarder l'image résultante
-    button_save = tk.Button(fenetre, text="Sauvegarder", command=lambda: img2.save("contraste de " + nom), bg="#0093FF", fg="white", font=("Helvetica", 12))
+    # Create the "Save" button to save the resulting image
+    button_save = tk.Button(fenetre, text="Save", command=lambda: img2.save("contrast of " + name), bg="#0093FF", fg="white", font=("Helvetica", 12))
     button_save.place(x=50, y=0)
 
 
-def flou(value):
+def blur(value):
     """
-    Applique un effet de flou à l'image.
-    Affiche l'image résultante avec l'effet de flou.
-    Crée également un bouton pour sauvegarder l'image résultante.
+    Applies a blur effect to the image.
+    Displays the resulting image with the blur effect.
+    Also creates a button to save the resulting image.
 
-    Entrées :
-    - value : intensité de l'effet de flou (valeur du scale)
+    Inputs:
+    - value: intensity of the blur effect (value from the scale)
 
-    Sorties :
-    - Aucune (mais modifie l'état de l'interface utilisateur)
+    Outputs:
+    - None (but modifies the state of the user interface)
 
-    1. Initialise les variables nom, img, image_tk, l, h et img2 avec la fonction init().
-    2. Récupère l'intensité de l'effet de flou à partir de la valeur du scale.
-    3. Applique l'effet de flou à l'image.
-    4. Redimensionne l'image résultante pour l'affichage dans l'interface graphique.
-    5. Affiche l'image résultante redimensionnée dans le label_image2.
-    6. Crée un bouton "Sauvegarder" pour enregistrer l'image résultante.
+    1. Initializes the variables name, img, image_tk, width, height, and img2 with the init() function.
+    2. Retrieves the intensity of the blur effect from the scale value.
+    3. Applies the blur effect to the image.
+    4. Resizes the resulting image for display in the graphical interface.
+    5. Displays the resized resulting image in label_image2.
+    6. Creates a "Save" button to save the resulting image.
 
-    - Les modules os, tkinter, filedialog et PIL doivent être importés.
-    - Les champs de texte et labels label_read, label_image, label_imageB et label_image2 doivent être définis dans l'interface utilisateur.
-    - La fonction init() doit être définie et renvoyer les variables nom, img, image_tk, l, h et img2.
+    - The os, tkinter, filedialog, and PIL modules must be imported.
+    - The text fields and labels label_read, label_image, label_imageB, and label_image2 must be defined in the user interface.
+    - The init() function must be defined and return the variables name, img, image_tk, width, height, and img2.
 
-    - Le label_image2 affiche l'image résultante avec l'effet de flou.
-    - Un bouton "Sauvegarder" permet de sauvegarder l'image résultante avec l'effet de flou.
+    - The label_image2 displays the resulting image with the blur effect.
+    - A "Save" button allows saving the resulting image with the blur effect.
     """
-    nom, img, image_tk, l, h, img2 = init()
-    intensite = scale_flou.get()
-    img2 = img.filter(ImageFilter.GaussianBlur(radius=intensite))
+    name, img, image_tk, width, height, img2 = init()
+    intensity = scale_blur.get()
+    img2 = img.filter(ImageFilter.GaussianBlur(radius=intensity))
     
-    # Redimensionne l'image résultante pour l'affichage
-    img2_resized = img2.resize((int(l * 250 / l), int(h / (l / (l * 250 / l)))))
+    # Resize the resulting image for display
+    img2_resized = img2.resize((int(width * 250 / width), int(height / (width / (width * 250 / width)))))
     image_tk = ImageTk.PhotoImage(img2_resized)
     label_image2.config(image=image_tk)
     label_image2.image = image_tk
     
-    # Crée le bouton "Sauvegarder" pour sauvegarder l'image résultante
-    button_save = tk.Button(fenetre, text="Sauvegarder", command=lambda: img2.save("flou de " + nom), bg="#0093FF", fg="white", font=("Helvetica", 12))
+    # Create the "Save" button to save the resulting image
+    button_save = tk.Button(fenetre, text="Save", command=lambda: img2.save("blur of " + name), bg="#0093FF", fg="white", font=("Helvetica", 12))
     button_save.place(x=50, y=0)
+
 
 
 # Création de la fenêtre
